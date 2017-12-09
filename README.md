@@ -24,7 +24,7 @@ Example
 -------
 All the songs Max Martin contributed to (according to his Wikipedia discography as writer from 06.12.17) are listed in 'Max_Martin_Songs_06-12-17' and the corresponding artists in 'Max_Martin_Artists_06-12-17'. The result is shown below.
 
-![]()
+![](https://raw.githubusercontent.com/3ngthrust/calculate-chart-success-2/master/Max_Martin_Chart_Success.png)
 
 The added values for this example can be seen in 'Max_Martin_Output_06-12-17'. The output seems accurate. Of course errors are still possible since song titles and artist names can be similar and a fuzzy string comparison is used.
 
