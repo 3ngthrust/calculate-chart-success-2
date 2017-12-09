@@ -1,5 +1,5 @@
 # chart_success.py
-A script to evaluate the chart success of an artist, writer or producer on a billboard chart over the years. 
+A script to calculate the chart success of an artist, writer or producer on a billboard chart over the years. 
 
 The simple metric calculated is as follows: A no. 1 song is valued as 100, a no. 2 song is valued as 99, etc., a no. 100 song is valued as 1. All song values of each chart of each year are added together.
 
