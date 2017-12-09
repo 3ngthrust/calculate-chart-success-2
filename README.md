@@ -18,7 +18,7 @@ Hint: Use a shortcut in libre office to split the artist cells: Libre Office -> 
 
 Dependencies
 ------------
-This script uses [billboard.py](https://github.com/guoguo12/billboard-charts) and [fuzzywuzzy](https://github.com/seatgeek/fuzzywuzzy).
+This script uses [billboard.py](https://github.com/guoguo12/billboard-charts) by [guoguo12](https://github.com/guoguo12) and [fuzzywuzzy](https://github.com/seatgeek/fuzzywuzzy).
 
 Example
 -------
