@@ -5,6 +5,7 @@
 """
 from collections import OrderedDict
 from fuzzywuzzy import fuzz
+import matplotlib.pyplot as plt
 import billboard
 import time
 import pickle
@@ -16,10 +17,10 @@ def song_value(songtitle, artist, chart):
 # The returned value for a no. 1 song is 100, the value of a no. 2 song is 99,
 # etc., the value of a no. 100 song is 1. If the song is not on the chart 0 is
 # returend.
-# Example: song_value("Song Title", "Artistname", chart)
+# Example: song_value('Song Title', 'Artistname', chart)
     
     for chart_pos, song in enumerate(chart):                              
-        if (fuzz.token_set_ratio(songtitle, song.title) >= 90) and (fuzz.partial_ratio(artist, song.artist) >= 80):
+        if (fuzz.partial_ratio(str.lower(songtitle), str.lower(song.title)) >= 90) and (fuzz.partial_ratio(artist, song.artist) >= 90):
             return 100-chart_pos
         
     return 0
@@ -65,6 +66,33 @@ def create_chart_database(chart_name, min_year, database_filename):
     pickle.dump(chart_database , open(database_filename+".pkl", "wb"))
     
     
+def plot_data(max_value, min_year, max_year, title, data):
+# Plot the data calculated with the function 'calculate success'.
+# Example: plot_data(25000, 1995, 2017, 'Chart Success of Max Martin', data)
+
+    years = list(range(min_year, max_year+1, 1))
+    values = []
+    for y in years:
+        if y not in data:
+            values.append(0)
+        else:
+            values.append(data[y])
+
+    fig = plt.figure(1)
+    plt.plot(years, values, marker='o', label="Max Martin") 
+    
+    plt.ylim(None, max_value)
+    #plt.grid(True)
+    plt.title(title)
+    plt.xlabel('Year')
+    plt.ylabel('Chart Success (Accumulated Song Values)')
+    #plt.legend(loc='upper left')
+    
+    fig.savefig(title + '.png', dpi = 300)
+    
+    plt.show()
+    
+    
 def calculate_success(database_filename, songlist_filename, artistlist_filename):
 # Adds the song values of the songs in songlist_filename with the corresponding
 # artists in artistlist_filename in the charts in database_filename together
@@ -90,7 +118,7 @@ def calculate_success(database_filename, songlist_filename, artistlist_filename)
         
             if value:
                 add_value_to_year(year, value, value_per_year)
-                print(song + ' by ' + artistlist[i] + ' ' + str(value) + "\n")
+                print('"' + song + '"' + ' by ' + artistlist[i] + ' ' + str(value) + "\n")
                 
     print(value_per_year)
     return value_per_year
@@ -99,4 +127,4 @@ def calculate_success(database_filename, songlist_filename, artistlist_filename)
 if __name__ == "__main__":
     
     # create_chart_database('hot-100', 1993, 'hot-100-1993')
-    calculate_success('hot-100-1993.pkl', 'Max_Martin_Songs_06-12-17' , 'Max_Martin_Artists_06-12-17')
+    calculate_success('../hot-100-1993.pkl', 'Max_Martin_Songs_06-12-17' , 'Max_Martin_Artists_06-12-17')

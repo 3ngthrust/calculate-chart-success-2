@@ -7,14 +7,14 @@ This is a improved version of [calculate-chart-success](https://github.com/3ngth
 
 Usage
 -----
-1. Go to the discography of the person you want to evaluate on Wikipedia. Select the whole table with the songs (Ctrl+C). Copy the table to libre office (Ctrl+V). Make shure each song has its corresponding cell with the name of the artist. Split the artist cells horizontaly if necessary. Select the column with the song titles in libre office. Copy them (Ctrl+C) in libre and paste them into an an editor. Remove empty lines (Regex to find the lines: ^\n) and ". The result should be a list like the example 'Max_Martin_Songs_06-12-17' here. Do the same with the artist collum the result could look like 'Max_Martin_Artists_06-12-17'. Make shure every song is unique in the lists, duplicates are not removed.  
+1. Go to the discography of the person you want to evaluate on Wikipedia. Select the whole table with the songs (Ctrl+C). Copy the table to libre office (Ctrl+V). Make shure each song has its corresponding cell with the name of the artist. Split the artist cells horizontaly if necessary. Select the column with the song titles in libre office. Copy them in libre and paste them into an an editor. Remove empty lines (Regex to find the lines: ^\n) and ". The result should be a list like the example 'Max_Martin_Songs_06-12-17' here. Do the same with the artist collum the result could look like 'Max_Martin_Artists_06-12-17'. Make shure every song is unique in the lists, duplicates are not removed.  
 Hint: Use a shortcut in libre office to split the artist cells: Libre Office -> Tools -> Customize -> Keyboard-Tab -> Select Key Combinaton (e.g. F4) -> Select Table, Split Cells -> Click Modify -> Ok 
 
-2. Create a database of charts with the function "create_chart_database(chart_name, min_year, database_filename)". See the docstring of the function in chart_success.py for more information.
+2. Create a database of charts with the function 'create_chart_database(chart_name, min_year, database_filename)'. See the docstring of the function in chart_success.py for more information.
 
-3. Use the function calculate_success(database_filename, songlist_filename, artistlist_filename) to calculate the metric for each year. See the docstring of the function in chart_success.py for more information.
+3. Use the function 'calculate_success(database_filename, songlist_filename, artistlist_filename)' to calculate the metric for each year. See the docstring of the function in chart_success.py for more information.
 
-3. Plot the results, a example is provided in visualisation.py
+3. Plot the results with the function plot_data(max_value, min_year, max_year, title, data). See the docstring of the function in chart_success.py for more information.
 
 Dependencies
 ------------
