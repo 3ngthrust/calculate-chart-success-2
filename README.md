@@ -26,5 +26,5 @@ All the songs Max Martin contributed to (according to his Wikipedia discography 
 
 ![](https://raw.githubusercontent.com/3ngthrust/calculate-chart-success-2/master/Chart_Success_of_Max_Martin.png)
 
-The added values for this example can be seen in 'Max_Martin_Output_10-12-17'. The output seems accurate. Of course errors are still possible since song titles and artist names can be similar and a fuzzy string comparison is used.
+The added values for this example can be seen in 'Max_Martin_Output_10-12-17'. The output seems accurate. Of course errors are still possible since song titles and artist names can be similar.
 
