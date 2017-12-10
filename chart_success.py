@@ -149,4 +149,4 @@ def calculate_success(database_filename, songlist_filename, artistlist_filename)
 if __name__ == "__main__":
     
     # create_chart_database('hot-100', 1993, 'hot-100-1993')
-    calculate_success('../hot-100-1993.pkl', 'Max_Martin_Songs_06-12-17' , 'Max_Martin_Artists_06-12-17')
+    calculate_success('../hot-100-1993.pkl', 'Max_Martin_Songs_06-12-17', 'Max_Martin_Artists_06-12-17')
