@@ -4,24 +4,32 @@
 @author: 3ngthrust
 """
 from collections import OrderedDict
-from fuzzywuzzy import fuzz
+from fuzzywuzzy import utils
 import matplotlib.pyplot as plt
 import billboard
 import time
 import pickle
 
+def normalize_str(s):
+    # Remove non alphanumeric letters, lowercase everything
+    s = utils.full_process(s)
+    # Remove all whitespaces    
+    s = "".join(s.split())
+    return s
 
 def song_value(songtitle, artist, chart):                                         
 # Run through one billboard chart objekt and return the "value" of the song 
 # with the specified Title and Artist in this chart.
-# The returned value for a no. 1 song is 100, the value of a no. 2 song is 99,
-# etc., the value of a no. 100 song is 1. If the song is not on the chart 0 is
-# returend.
-# Example: song_value('Song Title', 'Artistname', chart)
+# sontitle and artist should be normalized!
+# Example: song_value('songtitle', 'artistname', chart)
     
-    for chart_pos, song in enumerate(chart):                              
-        if (fuzz.partial_ratio(str.lower(songtitle), str.lower(song.title)) >= 90) and (fuzz.partial_ratio(artist, song.artist) >= 90):
-            return 100-chart_pos
+    for song_tupel in chart:   
+        if len(songtitle) >= 4:
+            if (songtitle in song_tupel[1]) and (artist in song_tupel[2]):  
+                return song_tupel[0]  
+        else:
+            if (songtitle == song_tupel[1]) and (artist in song_tupel[2]):  
+                return song_tupel[0] 
         
     return 0
    
@@ -65,7 +73,21 @@ def create_chart_database(chart_name, min_year, database_filename):
     # Save database
     pickle.dump(chart_database , open(database_filename+".pkl", "wb"))
     
+def prepare_chart_database(chart_database):
+# Precalculate the value of every entry in each chart. 
+# The returned value for a no. 1 song is 100, the value of a no. 2 song is 99,
+# etc., the value of a no. 100 song is 1. If the song is not on the chart 0 is
+# returend.
+# Normalize the sontitle and artist.
+# Save every chart entry as a list of tuples: (value, norm_title, norm_artist)
+# The position is still theire with its index.
+    prepared_chart_database = OrderedDict()
     
+    for chart_date, chart in chart_database.items():
+        prepared_chart_database[chart_date] = [(100-i, normalize_str(song.title), normalize_str(song.artist)) for i, song in enumerate(chart)]
+
+    return  prepared_chart_database   
+
 def plot_data(max_value, min_year, max_year, title, data):
 # Plot the data calculated with the function 'calculate success'.
 # Example: plot_data(25000, 1995, 2017, 'Chart Success of Max Martin', data)
@@ -99,14 +121,18 @@ def calculate_success(database_filename, songlist_filename, artistlist_filename)
 # Example: calculate_success('database_filename,pkl', 'songlist_filename', 'artistlist_filename')
     
     # Import chart_database
-    chart_database = pickle.load(open(database_filename, "rb"))  
+    chart_database = pickle.load(open(database_filename, "rb")) 
+    # Rearrange items and normalise song titles and artist names.
+    chart_database = prepare_chart_database(chart_database)
     
     # Import songlist and artistlist
-    songlist = open(songlist_filename).read().split('\n')
-    artistlist = open(artistlist_filename).read().split('\n')
+    songlist_ori = open(songlist_filename).read().split('\n')
+    artistlist_ori = open(artistlist_filename).read().split('\n')
+    # Normalize songlist and artistlist
+    songlist = [normalize_str(song) for song in songlist_ori]
+    artistlist = [normalize_str(artist) for artist in artistlist_ori]
                   
     value_per_year = dict()
-    
     for chart_date, chart in chart_database.items():
         
         print(chart_date + ":" + "\n")
@@ -118,7 +144,7 @@ def calculate_success(database_filename, songlist_filename, artistlist_filename)
         
             if value:
                 add_value_to_year(year, value, value_per_year)
-                print('"' + song + '"' + ' by ' + artistlist[i] + ' ' + str(value) + "\n")
+                print('"' + songlist_ori[i] + '"' + ' by ' + artistlist_ori[i] + ' ' + str(value) + "\n")
                 
     print(value_per_year)
     return value_per_year
