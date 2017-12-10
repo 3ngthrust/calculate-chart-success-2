@@ -7,7 +7,7 @@ This is a improved version of [calculate-chart-success](https://github.com/3ngth
 
 Usage
 -----
-1. Go to the discography of the person you want to evaluate on Wikipedia. Select the whole table with the songs (Ctrl+C). Copy the table to libre office (Ctrl+V). Make shure each song has its corresponding cell with the name of the artist. Split the artist cells horizontaly if necessary. Select the column with the song titles in libre office. Copy them in libre and paste them into an an editor. Remove empty lines (Regex to find the lines: ^\n) and ". The result should be a list like the example 'Max_Martin_Songs_06-12-17' here. Do the same with the artist collum the result could look like 'Max_Martin_Artists_06-12-17'. Make shure every song is unique in the lists, duplicates are not removed.  
+1. Go to the discography of the person you want to evaluate on Wikipedia. Select the whole table with the songs (Ctrl+C). Copy the table to libre office (Ctrl+V). Make shure each song has its corresponding cell with the name of the artist. Split the artist cells horizontaly if necessary. Select the column with the song titles in libre office. Copy them in libre and paste them into an an editor. Remove empty lines (Regex to find the lines: ^\n) and ". The result should be a list like the example 'Max_Martin_Songs_10-12-17' here. Do the same with the artist collum the result could look like 'Max_Martin_Artists_10-12-17'. Make shure every song is unique in the lists, duplicates are not removed.  
 Hint: Use a shortcut in libre office to split the artist cells: Libre Office -> Tools -> Customize -> Keyboard-Tab -> Select Key Combinaton (e.g. F4) -> Select Table, Split Cells -> Click Modify -> Ok 
 
 2. Create a database of charts with the function 'create_chart_database(chart_name, min_year, database_filename)'. See the docstring of the function in chart_success.py for more information.
@@ -22,9 +22,9 @@ This script uses [billboard.py](https://github.com/guoguo12/billboard-charts) by
 
 Example
 -------
-All the songs Max Martin contributed to (according to his Wikipedia discography as writer from 06.12.17) are listed in 'Max_Martin_Songs_06-12-17' and the corresponding artists in 'Max_Martin_Artists_06-12-17'. The result is shown below.
+All the songs Max Martin contributed to (according to his Wikipedia discography from 10.12.17) are listed in 'Max_Martin_Songs_10-12-17' and the corresponding artists in 'Max_Martin_Artists_10-12-17'. The result is shown below.
 
 ![](https://raw.githubusercontent.com/3ngthrust/calculate-chart-success-2/master/Chart%20Success%20of%20Max%20Martin.png)
 
-The added values for this example can be seen in 'Max_Martin_Output_06-12-17'. The output seems accurate. Of course errors are still possible since song titles and artist names can be similar and a fuzzy string comparison is used.
+The added values for this example can be seen in 'Max_Martin_Output_10-12-17'. The output seems accurate. Of course errors are still possible since song titles and artist names can be similar and a fuzzy string comparison is used.
 
