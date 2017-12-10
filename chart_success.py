@@ -12,8 +12,11 @@ import pickle
 
 
 def normalize_str(s):
-    """ Normalizes strings by removing all non alphanumeric letters, lowercasing
-    everything and removing all whitespaces"""
+    """ Normalizes strings 
+    
+    Removes all non alphanumeric letters, lowercases
+    everything and removes all whitespaces.
+    """
     # Remove non alphanumeric letters, lowercase everything
     s = utils.full_process(s)
     # Remove all whitespaces    
@@ -22,23 +25,26 @@ def normalize_str(s):
 
     
 def song_value(songtitle, artist, chart):                                         
-    """ Run through one billboard chart objekt and return the "value" of the song 
+    """ Returns the value of a song in a chart
+    
+    Run through one billboard chart objekt and return the "value" of the song 
     with the specified title and artist in this chart.
     If the song is not on the chart 0 is returend.
     Songtitle and artist should be normalized with normalize_str!
-    Example: song_value('songtitle', 'artistname', chart) """  
-    for song_tupel in chart:   
+    Example: song_value('songtitle', 'artistname', chart) 
+    """
+    for song_tuple in chart:   
         if len(songtitle) >= 4:
-            if (songtitle in song_tupel[1]) and (artist in song_tupel[2]):  
-                return song_tupel[0]  
+            if (songtitle in song_tuple[1]) and (artist in song_tuple[2]):  
+                return song_tuple[0]  
         else:
-            if (songtitle == song_tupel[1]) and (artist in song_tupel[2]):  
-                return song_tupel[0]     
+            if (songtitle == song_tuple[1]) and (artist in song_tuple[2]):  
+                return song_tuple[0]     
     return 0
    
     
 def add_value_to_year(year, value, value_per_year):
-    """ Adds a value to a year in the dict value_per_year """
+    """ Adds a value to a year in the dictionary value_per_year. """
     if year in value_per_year:
         value_per_year[year] = value_per_year[year] + value
     else:
@@ -46,9 +52,12 @@ def add_value_to_year(year, value, value_per_year):
 
 
 def create_chart_database(chart_name, min_year, database_filename):
-    """ Get all charts from the billboard chart with 'chart_name' up to and including
+    """ Creates a offline database of billboard charts
+    
+    Get all charts from the billboard chart with 'chart_name' up to and including
     the charts from min_year and save the database as 'database_filename.pkl'.
-    Example: create_chart_database('hot-100', 1993, 'hot-100-1993') """
+    Example: create_chart_database('hot-100', 1993, 'hot-100-1993') 
+    """
     chart = billboard.ChartData(chart_name)
     year = int(chart.date[:4])
     chart_database = OrderedDict()
@@ -74,15 +83,18 @@ def create_chart_database(chart_name, min_year, database_filename):
     # Save database
     pickle.dump(chart_database , open(database_filename+".pkl", "wb"))
     
+    
 def prepare_chart_database(chart_database):
-    """ Precalculate the value of every entry in each chart. 
+    """ Modifies the database for a fast comparision
+    
+    Precalculate the value of every entry in each chart. 
     The returned value for a no. 1 song is 100, the value of a no. 2 song is 99,
     etc., the value of a no. 100 song is 1. 
     Normalize the song title and artist name of each chart entry.
     Save every chart entry as a list of tuples: (value, norm_title, norm_artist)
-    The position information of the entry is still there because of its index. """
+    The position information of the entry is still there because of its index. 
+    """
     prepared_chart_database = OrderedDict()
-    
     for chart_date, chart in chart_database.items():
         prepared_chart_database[chart_date] = [(100-i, normalize_str(song.title), normalize_str(song.artist)) for i, song in enumerate(chart)]
 
@@ -90,8 +102,11 @@ def prepare_chart_database(chart_database):
 
     
 def plot_data(max_value, min_year, max_year, title, data):
-    """ Plot the data calculated with the function 'calculate success'.
-    Example: plot_data(25000, 1995, 2017, 'Chart Success of Max Martin', data) """
+    """ Plots the result of calculate_success
+    
+    Plot the data calculated with the function 'calculate success'.
+    Example: plot_data(25000, 1995, 2017, 'Chart Success of Max Martin', data) 
+    """
     years = list(range(min_year, max_year+1, 1))
     values = []
     for y in years:
@@ -116,9 +131,12 @@ def plot_data(max_value, min_year, max_year, title, data):
     
     
 def calculate_success(database_filename, songlist_filename, artistlist_filename):
-    """ Adds the song values of the songs in songlist_filename with the corresponding
+    """ Calculates the chart success over the years
+    
+    Adds the song values of the songs in songlist_filename with the corresponding
     artists in artistlist_filename in the charts in database_filename together.
-    Example: calculate_success('database_filename,pkl', 'songlist_filename', 'artistlist_filename') """ 
+    Example: calculate_success('database_filename,pkl', 'songlist_filename', 'artistlist_filename') 
+    """ 
     # Import chart_database
     chart_database = pickle.load(open(database_filename, "rb")) 
     # Rearrange items and normalise song titles and artist names.
