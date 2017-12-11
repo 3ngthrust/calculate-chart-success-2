@@ -131,6 +131,35 @@ def plot_data(max_value, min_year, max_year, title, data):
     plt.show()
     
     
+def calculate_artist_success(database_filename, artist):
+    """ Calculates the chart success of a artist over the years
+    
+    Adds the song values of the songs with this artist in the charts together.
+    Example: calculate_artist_success('database_filename,pkl', 'Artist Name') 
+    """ 
+    # Import chart_database
+    chart_database = pickle.load(open(database_filename, "rb")) 
+    # Rearrange items and normalise song titles and artist names.
+    chart_database_prepared = prepare_chart_database(chart_database)
+    
+    # Normalize artist
+    artist = normalize_str(artist)
+                  
+    value_per_year = dict()
+    for chart_date, chart in chart_database_prepared.items():
+        print(chart_date + ":" + "\n")
+        year = int(chart_date[:4])
+        
+        for i, song_tuple in enumerate(chart):
+            if artist in song_tuple[2]:
+                value = song_tuple[0]
+                add_value_to_year(year, value, value_per_year)
+                print('"' + chart_database[chart_date][i].title + '"' + ' by ' + chart_database[chart_date][i].artist + ' ' + str(value) + "\n")
+                
+    print(value_per_year)
+    return value_per_year
+    
+    
 def calculate_success(database_filename, songlist_filename, artistlist_filename):
     """ Calculates the chart success over the years
     
@@ -167,5 +196,7 @@ def calculate_success(database_filename, songlist_filename, artistlist_filename)
         
 if __name__ == "__main__":
     
-    # create_chart_database('hot-100', 1993, 'hot-100-1993')
-    calculate_success('../hot-100-1993.pkl', 'Max_Martin_Songs_10-12-17', 'Max_Martin_Artists_10-12-17')
+    #create_chart_database('hot-100', 1993, 'hot-100-1993')
+    #calculate_success('../hot-100-1993.pkl', 'Max_Martin_Songs_10-12-17', 'Max_Martin_Artists_10-12-17')
+    calculate_artist_success('../hot-100-1993.pkl', 'Adele')
+    
