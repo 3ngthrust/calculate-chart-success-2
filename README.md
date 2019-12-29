@@ -5,7 +5,7 @@ The simple metric calculated is as follows: A no. 1 song is valued as 100, a no.
 
 This is a improved version of [calculate-chart-success](https://github.com/3ngthrust/calculate-chart-success) with better accuracy. Here not only song titles are compared, but also the artist names. Therefore two lists are necessary instead of only one in the previous version.
 
-A very similar approach has been used in the FiveThirtyEight Article: [25 Years Of Super Bowl Halftime Show Lineups, Ranked](https://fivethirtyeight.com/features/25-years-of-super-bowl-halftime-show-lineups-ranked/). The article appeared one year after i published this repository. It could be purely coincidental though ;).
+A very similar approach has been used in the FiveThirtyEight Article: [25 Years Of Super Bowl Halftime Show Lineups, Ranked](https://fivethirtyeight.com/features/25-years-of-super-bowl-halftime-show-lineups-ranked/). The article appeared one year after i published this repository.
 
 Usage to evaluate a writer or producer
 --------------------------------------
