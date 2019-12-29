@@ -5,6 +5,8 @@ The simple metric calculated is as follows: A no. 1 song is valued as 100, a no.
 
 This is a improved version of [calculate-chart-success](https://github.com/3ngthrust/calculate-chart-success) with better accuracy. Here not only song titles are compared, but also the artist names. Therefore two lists are necessary instead of only one in the previous version.
 
+A very similar approach has been used in the FiveThirtyEight Article: [25 Years Of Super Bowl Halftime Show Lineups, Ranked](https://fivethirtyeight.com/features/25-years-of-super-bowl-halftime-show-lineups-ranked/). The article appeared one year after i published this repository. It could be purely coincidental though ;).
+
 Usage to evaluate a writer or producer
 --------------------------------------
 1. Go to the discography of the person you want to evaluate on Wikipedia. Select the whole table with the songs (Ctrl+C). Copy the table to libre office (Ctrl+V). Make shure each song has its corresponding cell with the name of the artist. Split the artist cells horizontaly if necessary. Select the column with the song titles in libre office. Copy them in libre and paste them into an an editor. Remove empty lines (Regex to find the lines: ^\n) and ". The result should be a list like the example 'Max_Martin_Songs_10-12-17' here. Do the same with the artist collum the result could look like 'Max_Martin_Artists_10-12-17'. Make shure every song is unique in the lists, duplicates are not removed.  
